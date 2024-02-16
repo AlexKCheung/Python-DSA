@@ -12,6 +12,7 @@ def isPalindrome(self, s: str) -> bool:
     # return True
 
     # faster two pointer 
+    # O(n) runtime and O(1) memory
     l, r = 0, len(s) - 1
     while l < r: 
         while l < r and not s[l].isalnum(): 
