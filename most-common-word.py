@@ -6,6 +6,9 @@ def mostCommonWord(self, paragraph: str, banned: List[str]) -> str:
             paragraph = paragraph.replace(i, " ")
     paragraph = paragraph.split(" ")
 
+    # discovered in other ppl's solutions/comments
+    banned = set(banned)
+
     counts = {}
     max_count = 0
     output_word = ""
