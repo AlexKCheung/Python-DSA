@@ -1,14 +1,18 @@
 def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-    # dictionary where key = sorted word, value = list of unsorted words
-    word_dic = {}
-
-    for word in strs:
-        sorted_word = ''.join(sorted(word))
-        if sorted_word in word_dic:
-            word_dic[sorted_word].append(word)
+    # for each word, use the sorted of that word as the key 
+    # use key in dictionary of lists
+    # use values to make output
+    anagram_dict = {}
+    for i in strs:
+        # sorted(i) returns list, so we combine it to a string
+        cur_word = "".join(sorted(i))
+        if cur_word in anagram_dict:
+            anagram_dict[cur_word].append(i)
         else:
-            word_dic[sorted_word] = [word]
-    output = []
-    for i in word_dic:
-        output.append(word_dic[i])
-    return output
+            anagram_dict[cur_word] = [i]
+
+    output_list = []
+    for i in anagram_dict:
+        output_list.append(anagram_dict[i])
+
+    return output_list
