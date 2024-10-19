@@ -1,13 +1,15 @@
 def search(self, nums: List[int], target: int) -> int:
-    left, right = 0, len(nums) - 1
+    l = 0
+    r = len(nums) - 1
+    
+    while l <= r:
+        mid = (l + r) // 2
+        if nums[mid] == target:
+            return mid
+        if nums[mid] > target:
+            r = mid - 1
+        # nums[mid] < target
+        else:
+            l = mid + 1
 
-    while left <= right: 
-        # middle = left + (right - left) // 2
-        middle = (left + right) // 2
-        if nums[middle] == target: 
-            return middle
-        if nums[middle] > target: 
-            right = middle - 1
-        elif nums[middle] < target: 
-            left = middle + 1
-    return -1
+    return -1 
