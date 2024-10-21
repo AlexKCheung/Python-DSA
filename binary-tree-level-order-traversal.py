@@ -6,19 +6,22 @@
 #         self.right = right
 
 def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-    if not root:
-        return []
-    output, level = [], [root]
-    while level:
-        cur_node = []
-        next_level = []
-        for node in level:
-            cur_node.append(node.val)
-            if node.left:
-                next_level.append(node.left)
-            if node.right:
-                next_level.append(node.right)
-        output.append(cur_node)
-        level = next_level
+    stack = collections.deque()
+    if root:
+        stack.append(root)
+    output = []
 
+    while stack:
+        current_level = []
+        for i in range(len(stack)):
+            a = stack.popleft()
+            current_level.append(a.val)
+            if a.left:
+                stack.append(a.left)
+            if a.right:
+                stack.append(a.right)
+
+        output.append(current_level)            
+    
     return output
+    
