@@ -1,21 +1,16 @@
 def lengthOfLongestSubstring(self, s: str) -> int:
     longest_length = 0
-    # two pointers
-    front = 0
-    back = 0
-    # o(n) space, stack 
-    current_substring = set()
+    r = 0
+    l = 0
+    cur_str = set()
 
-    while front < len(s):
-        if s[front] not in current_substring:
-            current_substring.add(s[front])
-            longest_length = max(longest_length, front - back + 1)
-            # front += 1
-        else: # s[front] in current_substring
-            while s[back] != s[front]:
-                current_substring.remove(s[back])
-                back += 1
-            back += 1
-        front += 1
+    while r < len(s):
+        if s[r] in cur_str:
+            while s[r] in cur_str:
+                cur_str.remove(s[l])
+                l += 1
+        cur_str.add(s[r])
+        r += 1
+        longest_length = max(longest_length, r - l)
     
-    return longest_length 
+    return longest_length
