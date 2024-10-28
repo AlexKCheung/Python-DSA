@@ -1,35 +1,32 @@
 def orangesRotting(self, grid: List[List[int]]) -> int:
+    # bfs on rotten oranges 
+    # iterate through length of queue, adding fresh oranges to end of queue
+
+    queue = collections.deque()
     fresh_oranges = 0
-    rotten_q = collections.deque() 
-    for i in range(len(grid)):
-        for j in range(len(grid[0])):
-            if grid[i][j] == 1:
+    for row in range(len(grid)):
+        for col in range(len(grid[0])):
+            if grid[row][col] == 2:
+                queue.append((row, col))
+            if grid[row][col] == 1:
                 fresh_oranges += 1
-            if grid[i][j] == 2:
-                rotten_q.append((i, j))
-    if fresh_oranges == 0:
-        return 0
-    if not rotten_q:
-        return -1
     
-    minutes = 0
-    while rotten_q and fresh_oranges > 0:
-        minutes += 1
+    time_elapsed = 0
 
-        for i in range(len(rotten_q)):
-            x, y = rotten_q.popleft()
-            for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
-                xx, yy = x + dx, y + dy
-                if xx < 0 or xx == len(grid) or yy < 0 or yy == len(grid[0]):
+    while queue and fresh_oranges > 0:
+        for i in range(len(queue)):
+            r, c = queue.popleft()
+            for a, b in ([1, 0], [0, 1], [-1, 0], [0, -1]):
+                rr, cc = r + a, c + b
+                if rr < 0 or cc < 0 or rr == len(grid) or cc == len(grid[0]):
                     continue
-                if grid[xx][yy] == 0 or grid[xx][yy] == 2:
+                if grid[rr][cc] == 0 or grid[rr][cc] == 2:
                     continue
-                grid[xx][yy] = 2
-                rotten_q.append((xx, yy))
+                # change cell from fresh to rotten
                 fresh_oranges -= 1
+                grid[rr][cc] = 2
+                queue.append((rr, cc))
 
-    if fresh_oranges != 0:
-        return -1
-    return minutes
-
-
+        time_elapsed += 1
+    
+    return time_elapsed if fresh_oranges == 0 else -1
