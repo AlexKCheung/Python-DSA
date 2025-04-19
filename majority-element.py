@@ -1,14 +1,13 @@
 def majorityElement(self, nums: List[int]) -> int:
-    # Boyer Moore majority vote algorithm
-    candidate = None
+    # just use a count since we know it appears more than n/2 times 
     count = 0
+    cur_num = nums[0]
     for i in range(len(nums)):
-        if count == 0:
-            candidate = nums[i]
-            count = 1
-        elif candidate == nums[i]:
+        if nums[i] == cur_num:
             count += 1
-        # candidate != nums[i]
-        else: 
+        else:
             count -= 1
-    return candidate if count > 0 else None
+            if count < 0:
+                count = 1
+                cur_num = nums[i]
+    return cur_num
